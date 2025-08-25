@@ -5,7 +5,7 @@ import RoleInsights from '../components/RoleInsights';
 import InterviewQuestions from '../components/InterviewQuestions';
 import SkillGapAnalysis from '../components/SkillGapAnalysis';
 import PracticeMode from '../components/PracticeMode';
-// Removed: import html2pdf from 'html2pdf.js';
+// Removed: import html2pdf from 'html2pdf.js'; // Still removed as it's dynamically imported
 
 // Main application component
 export default function Home() {
@@ -105,22 +105,26 @@ export default function Home() {
       return;
     }
 
-    // Dynamically import html2pdf.js only on the client side
-    const html2pdf = (await import('html2pdf.js')).default;
+    // Dynamically import html2pdf.js only on the client side, ensuring 'window' is defined.
+    if (typeof window !== 'undefined') {
+      const html2pdf = (await import('html2pdf.js')).default;
 
-    // Define the content to be exported. You can customize this HTML structure.
-    const content = document.getElementById('analysis-output-section');
+      // Define the content to be exported. You can customize this HTML structure.
+      const content = document.getElementById('analysis-output-section');
 
-    const opt = {
-      margin: 0.5,
-      filename: `${analysisResults.insights.roleTitle.replace(/\s/g, '-') || 'Interview-Analysis'}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-      pagebreak: { mode: 'avoid-all' } // Avoid breaking content across pages if possible
-    };
+      const opt = {
+        margin: 0.5,
+        filename: `${analysisResults.insights.roleTitle.replace(/\s/g, '-') || 'Interview-Analysis'}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        pagebreak: { mode: 'avoid-all' } // Avoid breaking content across pages if possible
+      };
 
-    html2pdf().from(content).set(opt).save();
+      html2pdf().from(content).set(opt).save();
+    } else {
+      console.warn("html2pdf.js attempted to run in a non-browser environment.");
+    }
   };
 
   return (
