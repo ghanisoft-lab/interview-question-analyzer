@@ -134,57 +134,59 @@ export default function Home() {
       keywords={seoKeywords}
       structuredData={structuredData}
     >
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold text-primary-blue mb-6 text-center">
+      <div className="flex flex-col items-center justify-center min-h-screen py-8"> {/* Added min-h-screen and py-8 for overall spacing */}
+        <h1 className="text-4xl font-bold text-primary-blue mb-4 text-center"> {/* Adjusted mb */}
           Interview Question Analyzer
         </h1>
-        <p className="text-lg text-text-light text-center mb-8 max-w-2xl">
+        <p className="text-lg text-text-light text-center mb-10 max-w-2xl px-4"> {/* Adjusted mb and added horizontal padding */}
           Leverage AI to meticulously dissect job descriptions, anticipate interview questions, identify skill gaps, and practice with an AI interviewer. Your ultimate tool for interview success.
         </p>
 
-        {/* Input Section */}
-        <JDInput
-          jd={jd}
-          setJd={setJd}
-          resumeFile={resumeFile}
-          setResumeFile={setResumeFile}
-          handleAnalyze={handleAnalyze}
-          loading={loading}
-        />
+        <div className="w-full max-w-4xl space-y-8"> {/* Added a wrapper for content sections with consistent vertical spacing */}
+          {/* Input Section */}
+          <JDInput
+            jd={jd}
+            setJd={setJd}
+            resumeFile={resumeFile}
+            setResumeFile={setResumeFile}
+            handleAnalyze={handleAnalyze}
+            loading={loading}
+          />
 
-        {/* Error Display */}
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6 w-full max-w-4xl" role="alert">
-            <strong className="font-bold">Error!</strong>
-            <span className="block sm:inline ml-2">{error}</span>
-          </div>
-        )}
-
-        {/* Analysis Results Section */}
-        {analysisResults && (
-          <div id="analysis-output-section" className="w-full"> {/* ID for PDF export */}
-            <RoleInsights insights={analysisResults.insights} />
-            <InterviewQuestions questions={analysisResults.questions} />
-            <SkillGapAnalysis skillGaps={analysisResults.skillGaps} />
-
-            {/* Export Options */}
-            <div className="bg-white p-6 rounded-lg shadow-md mb-8 flex justify-end">
-              <button
-                onClick={handleExportPdf}
-                className="bg-primary-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-all duration-300 flex items-center"
-              >
-                {/* Corrected SVG for a download icon */}
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                </svg>
-                Download as PDF
-              </button>
+          {/* Error Display */}
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-full" role="alert">
+              <strong className="font-bold">Error!</strong>
+              <span className="block sm:inline ml-2">{error}</span>
             </div>
+          )}
 
-            {/* Practice Mode */}
-            <PracticeMode jd={jd} roleTitle={analysisResults.insights.roleTitle} />
-          </div>
-        )}
+          {/* Analysis Results Section */}
+          {analysisResults && (
+            <div id="analysis-output-section" className="w-full space-y-8"> {/* ID for PDF export, added space-y-8 */}
+              <RoleInsights insights={analysisResults.insights} />
+              <InterviewQuestions questions={analysisResults.questions} />
+              <SkillGapAnalysis skillGaps={analysisResults.skillGaps} />
+
+              {/* Export Options */}
+              <div className="bg-white p-6 rounded-lg shadow-md flex justify-end"> {/* Removed mb-8 as parent div has space-y */}
+                <button
+                  onClick={handleExportPdf}
+                  className="bg-primary-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-all duration-300 flex items-center"
+                >
+                  {/* Corrected SVG for a download icon */}
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                  </svg>
+                  Download as PDF
+                </button>
+              </div>
+
+              {/* Practice Mode */}
+              <PracticeMode jd={jd} roleTitle={analysisResults.insights.roleTitle} />
+            </div>
+          )}
+        </div>
       </div>
     </Layout>
   );
