@@ -1,5 +1,3 @@
-import { GoogleGenerativeLanguageServiceClient } from '@google-generative-ai/google-generative-ai';
-
 // Initialize Gemini API client
 // The API key will be provided by the Canvas environment for local execution
 // For Vercel deployment, ensure GEMINI_API_KEY is set in environment variables

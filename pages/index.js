@@ -166,4 +166,19 @@ export default function Home() {
                 onClick={handleExportPdf}
                 className="bg-primary-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-all duration-300 flex items-center"
               >
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd"></path><path fillRule="even
+                {/* Corrected SVG for a download icon */}
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                Download as PDF
+              </button>
+            </div>
+
+            {/* Practice Mode */}
+            <PracticeMode jd={jd} roleTitle={analysisResults.insights.roleTitle} />
+          </div>
+        )}
+      </div>
+    </Layout>
+  );
+}
