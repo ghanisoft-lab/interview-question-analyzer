@@ -5,7 +5,7 @@ import RoleInsights from '../components/RoleInsights';
 import InterviewQuestions from '../components/InterviewQuestions';
 import SkillGapAnalysis from '../components/SkillGapAnalysis';
 import PracticeMode from '../components/PracticeMode';
-import html2pdf from 'html2pdf.js';
+// Removed: import html2pdf from 'html2pdf.js';
 
 // Main application component
 export default function Home() {
@@ -99,11 +99,14 @@ export default function Home() {
   };
 
   // Handles exporting the analysis results to a PDF
-  const handleExportPdf = () => {
+  const handleExportPdf = async () => { // Made async to await dynamic import
     if (!analysisResults) {
       alert('Please analyze a job description first to export results.');
       return;
     }
+
+    // Dynamically import html2pdf.js only on the client side
+    const html2pdf = (await import('html2pdf.js')).default;
 
     // Define the content to be exported. You can customize this HTML structure.
     const content = document.getElementById('analysis-output-section');
